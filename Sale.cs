@@ -554,6 +554,10 @@ namespace IlufaSharedObjects
         {
         }
 
+        public virtual bool check_supplier_exists(Vendor v)
+        {
+            return false;
+        }
         public virtual void check_for_sale(item scanned, int idx, BindingList<SalesOrder> other_sales)
         {
 
@@ -664,6 +668,17 @@ namespace IlufaSharedObjects
 
             return a_sale;
                          
+        }
+
+        public override bool check_supplier_exists(Vendor v)
+        {
+            bool response = false;
+            foreach (supplier_item si in discount_key)
+            {
+                if (si.vendor_code == v.vendor_code)
+                    return true;
+            }
+            return response;
         }
 
         public override void addSupplier(Vendor v)
@@ -1867,6 +1882,16 @@ namespace IlufaSharedObjects
             this.discount_key.Add(si);
         }
 
+        public override bool check_supplier_exists(Vendor v)
+        {
+            bool response = false;
+            foreach (supplier_item si in discount_key)
+            {
+                if (si.vendor_code == v.vendor_code)
+                    return true;
+            }
+            return response;
+        }
         public void setQuantity(int qty)
         {
             required_qty = qty;
@@ -2147,7 +2172,16 @@ namespace IlufaSharedObjects
 
             this.discount_key.Add(si);
         }
-
+        public override bool check_supplier_exists(Vendor v)
+        {
+            bool response = false;
+            foreach (supplier_item si in discount_key)
+            {
+                if (si.vendor_code == v.vendor_code)
+                    return true;
+            }
+            return response;
+        }
         public override string getItemString()
         {
             string the_items = "";
