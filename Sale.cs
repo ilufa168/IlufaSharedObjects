@@ -1648,7 +1648,7 @@ namespace IlufaSharedObjects
                         cumulative_cost += discount_items[i].quantity * discount_items[i].unit_price;
                         discount_items[i].discount_id = get_sale_id().ToString();
                         discount_items[i].discount_desc = "Beli Banyak Hemat";
-                        discount_items[i].discount = ((double)(cumulative_cost - this.getFixedPrice())/ discount_items[i].quantity);
+                        discount_items[i].discount = ZeroCheck(((double)(cumulative_cost - this.getFixedPrice())/ discount_items[i].quantity));
                         cumulative_cost = 0;
                         disc_qty -= required_qty;
                         count = 0;
@@ -1659,7 +1659,7 @@ namespace IlufaSharedObjects
                         cumulative_cost += discount_items[i].quantity * discount_items[i].unit_price;
                         discount_items[i].discount_id = get_sale_id().ToString();
                         discount_items[i].discount_desc = "Beli Banyak Hemat";
-                        discount_items[i].discount = ((double)(cumulative_cost - this.getFixedPrice()) / discount_items[i].quantity);
+                        discount_items[i].discount = ZeroCheck(((double)(cumulative_cost - this.getFixedPrice()) / discount_items[i].quantity));
                         disc_qty -= required_qty;
                         cumulative_cost = 0;
                         count = 0;
@@ -1675,6 +1675,14 @@ namespace IlufaSharedObjects
                 }
             }
                   
+        }
+
+        private double ZeroCheck(double discount)
+        {
+            if (discount > 0)
+                return discount;
+
+            return 0;
         }
 
         public override void check_for_sale(item scanned, int idx, BindingList<SalesOrder> other_sales)
